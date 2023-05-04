@@ -1,0 +1,99 @@
+#include <stdio.h>
+#include <string.h>
+
+typedef struct{
+	char nome[30];
+	char estilo[30];
+	int qndtInt;
+	int rank;
+} BANDA;
+
+
+void leBanda(BANDA *v,int qntd){
+	int i;
+	
+	for(i=0;i<qntd;i++){
+		printf("\n\nInsira o nome da banda: "); scanf("%s", v[i].nome);
+		printf("Insira o estilo da banda: "); scanf("%s", v[i].estilo);
+		printf("Insira o numero de integrantes: "); scanf("%d", &v[i].qndtInt);
+		while(v[i].qndtInt<=0){
+			printf("Quantidade de membros não aceito, tente novamente:\n");
+			scanf("%d", &v[i].qndtInt);
+		}
+		printf("Insira o ranking da banda: "); scanf("%d", &v[i].rank);
+		while(v[i].rank<1 || v[i].rank>qntd){
+			printf("ranking não aceito, tente novamente:\n");
+			scanf("%d", &v[i].rank);
+		}
+	}
+}
+
+
+void buscarNome(BANDA *v,int qntd){
+	int i;
+	char nome[30];
+	printf("Insira o nome da banda a ser pesquisada: "); scanf("%s", nome);
+	for(i=0;i<qntd;i++){
+		if(strcmp(v[i].nome, nome)==0){
+			printf("\nNome da banda:%s", v[i].nome);
+			printf("\nEstilo musical:%s", v[i].estilo);
+			printf("\nQuantidade de membros:%d", v[i].qndtInt);
+			printf("\nRanking da banda:%d\n", v[i].rank);
+		}
+	}
+}
+
+
+void buscarEstilo(BANDA *v,int qntd){
+	int i;
+	char stilo[30];
+	printf("Insira o estilo musical da banda a ser pesquisada: "); scanf("%s", stilo);
+	for(i=0;i<qntd;i++){
+		if(strcmp(v[i].estilo, stilo)==0){
+			printf("\nNome da banda:%s", v[i].nome);
+			printf("\nEstilo musical:%s", v[i].estilo);
+			printf("\nQuantidade de membros:%d", v[i].qndtInt);
+			printf("\nRanking da banda:%d\n", v[i].rank);
+		}
+	}
+}
+
+void lista(BANDA *v,int qntd){
+	int i;
+	
+	for(i=0;i<qntd;i++){
+		printf("\nNome da banda:%s", v[i].nome);
+		printf("\nEstilo musical:%s", v[i].estilo);
+		printf("\nQuantidade de membros:%d", v[i].qndtInt);
+		printf("\nRanking da banda:%d\n", v[i].rank);
+	}
+}
+
+
+void menu(int qntd){
+	BANDA v[qntd];
+	int funcionando = 1, opcao;
+	while(funcionando){
+		printf("\n\n1 - Inserir banda\n2 - Buscar banda por nome\n3 - Buscar banda(s) pelo estilo\n4 - Sair do menu\n5 - Mostrar bandas\nEscolha uma opcao: "); scanf("%d", &opcao);
+		switch(opcao){
+			case 1: leBanda(v, qntd); break; 
+			case 2: buscarNome(v, qntd); break;
+			case 3: buscarEstilo(v, qntd); break;
+			case 4: funcionando = 0; break;
+			case 5: lista(v, qntd); break;
+			default: printf("\nOpcao invalida\n");
+		}
+	}
+}
+
+int main(){
+	int qntd;
+	printf("Insira a quantidade de bandas a serem inseridas: "); scanf("%d", &qntd);
+	while(qntd<=0){
+		printf("Quantidade invalida, insira novamente: "); scanf("%d", &qntd);
+	
+	}
+	menu(qntd);
+	
+	return 0;
+}
